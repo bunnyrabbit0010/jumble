@@ -23,7 +23,7 @@ jobs:
           python-version: 3.9  # Replace with your desired Python version
 
       - name: Create ZIP
-        run: zip -r jumble.zip
+        run: zip -r jumble.zip src
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1.7.0
