@@ -22,9 +22,6 @@ jobs:
         with:
           python-version: 3.9  # Replace with your desired Python version
 
-      #- name: Install dependencies
-        #run: pip install -r requirements.txt
-
       - name: Create ZIP
         run: zip -r jumble.zip
 
