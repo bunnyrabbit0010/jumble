@@ -1,5 +1,7 @@
 import random
 
+#this is a test to see how the deployment works.
+
 def rearrange_words(word_list):
   """Rearranges each word in a list to create a new list of jumbled words.
 
