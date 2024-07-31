@@ -3,7 +3,7 @@ from generate import Generator
 
 print('Loading function')
 
-
+#wierd
 def lambda_handler(event, context):
     # Assume it is a GET Call
   
