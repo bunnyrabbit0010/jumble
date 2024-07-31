@@ -65,8 +65,8 @@ class Generator:
         self.mylogger.logDebug('Returning ')
         self.mylogger.logDebug(jumbled_words)
 
-        ret_words_json = json.dumps(word_list)
-        ret_jumbled_words_json = json.dumps(jumbled_words)
-        return ret_words_json, ret_jumbled_words_json
-
-
+        result = list(zip(word_list, jumbled_words))
+        result_json = json.dumps([{"Word":p, "jumbled_word":j} for p, j in result])
+        self.mylogger.logDebug(result_json)
+        self.mylogger.logDebug("returning from jumbledwords")
+        return result_json
