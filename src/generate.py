@@ -1,10 +1,13 @@
 import random
 import csv
+from logger import MyLogger
+
 
 class Generator:
     def __init__(self):
         self.source = './data/data.csv'
         self.data = []
+        self.mylogger = MyLogger()
 
     def read_csv_file(self):
         """Reads a CSV file and returns a list of lists, where each inner list contains 5 words.
@@ -15,26 +18,27 @@ class Generator:
         Returns:
             A list of lists, where each inner list contains 5 words.
         """
-        print ('Reading csv file...')
+        self.mylogger.logDebug('Reading csv file...')
         with open(self.source, 'r') as csvfile:
             csv_reader = csv.reader(csvfile)
             for row in csv_reader:
                 if len(row) == 5:  # Ensure each row has 5 elements
                     self.data.append(row)
+        
+        self.mylogger.logDebug('Row Count: ' + str(len(self.data)))
 
-        print ('Row Count: ' + str(len(self.data)))
    
     def getWords(self):
         if len(self.data) == 0:
-            print('Loading Data...')
+            self.mylogger.logDebug('Loading Data...')
             self.read_csv_file()
 
         random_integer = random.randint(1, len(self.data))
         row = self.data[random_integer - 1]
-        print('Read row ')
-        print(row)
+        self.mylogger.logDebug('Read row ')
+        self.mylogger.logDebug(row)
         cleaned_words = [word.strip().upper() for word in row]
-        print(cleaned_words)
+        self.mylogger.logDebug(cleaned_words)
         return cleaned_words
 
     def getJumbledWords(self):
@@ -50,7 +54,6 @@ class Generator:
         word_list = self.getWords()
         jumbled_words = []
         for word in word_list:
-            print ('Looping thru ' + word)
             letters = list(word)
             random.shuffle(letters)
             new_word = ''.join(letters)
@@ -58,8 +61,8 @@ class Generator:
                 random.shuffle(letters)
                 new_word = ''.join(letters)
             jumbled_words.append(new_word)
-        print('Returning ')
-        print(jumbled_words)
+        self.mylogger.logDebug('Returning ')
+        self.mylogger.logDebug(jumbled_words)
         return jumbled_words
 
 
