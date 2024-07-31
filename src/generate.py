@@ -1,5 +1,6 @@
 import random
 import csv
+import json
 from logger import MyLogger
 
 
@@ -63,6 +64,9 @@ class Generator:
             jumbled_words.append(new_word)
         self.mylogger.logDebug('Returning ')
         self.mylogger.logDebug(jumbled_words)
-        return jumbled_words
+
+        ret_words_json = json.dumps(word_list)
+        ret_jumbled_words_json = json.dumps(jumbled_words)
+        return ret_words_json, ret_jumbled_words_json
 
 
