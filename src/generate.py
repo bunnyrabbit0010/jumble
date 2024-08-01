@@ -1,14 +1,33 @@
 import random
 import csv
+import io
 import json
-from logger import MyLogger
-
+import boto3
+from .logger import MyLogger
 
 class Generator:
     def __init__(self):
         self.source = './data/data.csv'
+        self.bucket_name = 'jumble-game-data'
+        self.file_name = 'data.csv'
         self.data = []
         self.mylogger = MyLogger()
+        
+    def read_from_s3(self):
+        s3 = boto3.client('s3')
+        try:
+            obj = s3.get_object(Bucket=self.bucket_name, Key=self.file_name)
+            csv_file = io.TextIOWrapper(obj['Body'], encoding='utf-8')
+            csv_reader = csv.reader(csv_file)
+            for row in csv_reader:
+                if len(row) == 5:  # Ensure each row has 5 elements
+                    self.data.append(row)
+        
+            self.mylogger.logDebug('Row Count: ' + str(len(self.data)))
+
+        except Exception as e:
+            print(f"Error reading S3 object: {e}")
+
 
     def read_csv_file(self):
         """Reads a CSV file and returns a list of lists, where each inner list contains 5 words.
@@ -32,7 +51,8 @@ class Generator:
     def getWords(self):
         if len(self.data) == 0:
             self.mylogger.logDebug('Loading Data...')
-            self.read_csv_file()
+            #self.read_csv_file()
+            self.read_from_s3()
 
         random_integer = random.randint(1, len(self.data))
         row = self.data[random_integer - 1]
