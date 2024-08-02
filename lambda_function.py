@@ -1,13 +1,13 @@
 import json
-from generate import Generator
+from src import generate
 
 print('Loading function')
 
-#wierd
+
 def lambda_handler(event, context):
     # Assume it is a GET Call
   
-    generator = Generator() 
+    generator = generate.Generator() 
     result = generator.getJumbledWords()
     
     return {
