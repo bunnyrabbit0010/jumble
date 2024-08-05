@@ -23,7 +23,7 @@ jobs:
           python-version: 3.9  # Replace with your desired Python version
 
       - name: Create ZIP
-        run: zip -r jumble.zip src
+        run: zip -r jumble_src.zip src
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1.7.0
@@ -37,4 +37,5 @@ jobs:
           aws sts get-caller-identity
 
       - name: Deploy to Lambda
-        run: aws lambda update-function-code --function-name jumble-game-function --zip-file fileb://jumble.zip
+        run: aws lambda publish-layer-version --layer-name jumble_game_layer --zip-file fileb://jumble_src.zip --compatible-runtiems python3.9
+
