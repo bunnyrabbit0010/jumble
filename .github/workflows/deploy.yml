@@ -37,5 +37,5 @@ jobs:
           aws sts get-caller-identity
 
       - name: Deploy to Lambda
-        run: aws lambda publish-layer-version --layer-name jumble_game_layer --zip-file fileb://jumble_src.zip --compatible-runtiems python3.9
+        run: aws lambda publish-layer-version --layer-name jumble_game_layer --zip-file fileb://jumble_src.zip --compatible-runtimes python3.9
 
