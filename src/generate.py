@@ -14,6 +14,7 @@ class Generator:
         self.mylogger = MyLogger()
         
     def read_from_s3(self):
+        deliberate comment to fail code so I dont exceed the s3 limits
         s3 = boto3.client('s3')
         try:
             obj = s3.get_object(Bucket=self.bucket_name, Key=self.file_name)
